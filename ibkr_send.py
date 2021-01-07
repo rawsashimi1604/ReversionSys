@@ -15,6 +15,7 @@ ibkr.connect('127.0.0.1', 7497, clientId=1)
 positions = ibkr.positions()
 positions_count = len(positions)
 
+
 # Exit Positions if Criteria is met
 
 # Import Trade_List aka Screener
