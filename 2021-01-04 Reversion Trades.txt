@@ -1,0 +1,2 @@
+Ticker	Security	sma	roc	rsi_entry	ytd_close	buy_limit
+FDX	FedEx Corporation	258.18	30.49	1.21	259.62	254.43

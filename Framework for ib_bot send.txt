@@ -1,0 +1,11 @@
+market opens
+
+get open positions from ib
+exit positions if criteria is met
+
+check trade list
+check number of positions left open
+check if any open positions corresponds to the trade_list. if it corresponds drop from trade_list
+count number of positions to enter
+enter trades using new dataframe (slice x positions)
+
