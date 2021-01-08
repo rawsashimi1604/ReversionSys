@@ -44,22 +44,30 @@ def get_trade_list(file_type):
 
         # For loop to get TA Values
         for ticker in df.index:
-            # Get Data from Yahoo Finance
-            ticker_close_data = data(f'{ticker}')['Close']
-            # Get Values for SMA, RSI Entry and ROC
-            sma_val = round(talib.SMA(ticker_close_data, 100).values.tolist()[-1], 2)
-            rsi_entry_val = round(talib.RSI(ticker_close_data, 2).values.tolist()[-1], 2)
-            roc_val = round(talib.ROC(ticker_close_data, 100).values.tolist()[-1], 2)
+            # Try to get Data from Yahoo Finance using Ticker
+            try:
+                # Get Data from Yahoo Finance
+                ticker_close_data = data(f'{ticker}')['Close']
 
-            # Get Yesterday's Close Value
-            close_val = prevClose(f'{ticker}')
+                # Get Values for SMA, RSI Entry and ROC
+                sma_val = round(talib.SMA(ticker_close_data, 100).values.tolist()[-1], 2)
+                rsi_entry_val = round(talib.RSI(ticker_close_data, 2).values.tolist()[-1], 2)
+                roc_val = round(talib.ROC(ticker_close_data, 100).values.tolist()[-1], 2)
 
-            # Add these values to existing lists
-            sma.append(sma_val)
-            roc.append(roc_val)
-            rsi_entry.append(rsi_entry_val)
-            ytd_close.append(close_val)
-            buy_limit.append(round(close_val * 0.98, 2))
+                # Get Yesterday's Close Value
+                close_val = prevClose(f'{ticker}')
+
+                # Add these values to existing lists
+                sma.append(sma_val)
+                roc.append(roc_val)
+                rsi_entry.append(rsi_entry_val)
+                ytd_close.append(close_val)
+                buy_limit.append(round(close_val * 0.98, 2))
+
+            except IndexError:
+                # If not pass and continue line of code
+                print(f"Error found in retrieving data from {ticker}.")
+                pass
 
         # Add these values into pandas dataframe
         df['sma'] = sma
@@ -121,3 +129,14 @@ def trade_list(file_csv):
 
     df = pd.DataFrame(buy_limit, index=ticker, columns=['buy_limit'])
     return df
+
+
+def rsi_exit(ticker):
+    # Get close data from Yahoo Finance
+    ticker_close_data = data(f'{ticker}')['Close']
+
+    # Get RSI Exit Val
+    rsi_exit_val = round(talib.RSI(ticker_close_data, 5).values.tolist()[-1], 2)
+    return rsi_exit_val
+
+
