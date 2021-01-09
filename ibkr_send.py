@@ -23,26 +23,24 @@ Please only run after entering 10 days n Bars trailing stop loss as this version
 ''')
 
 # Connect to IB Servers
-ibkr.connect('127.0.0.1', 7497, clientId=1)
-print("Connecting to Interactive Brokers TWS Servers.")
+try:
+    ibkr.connect('127.0.0.1', 7497, clientId=1)
+    print("Connecting to Interactive Brokers TWS Servers.")
 
-# Check whether connection is successful
-if ibkr.isConnected():
-    print('''Connection successful. Will continue placing trades now.
----------------------------------------------------------------------------------------------------------------------
-    ''')
-
-else:
+except ConnectionRefusedError:
     # If connection does not work, end the program.
     print('''Error in connecting to Interactive Brokers TWS Servers.
-    Please check your Internet connection, IP Address, Socket port number.
-    Check TWS Settings to see if API "READ - ONLY API is disabled, and ports are allowed to connect.
-    .......
-    Ending program now.
-    ''')
+Please check your Internet connection, IP Address, Socket port number.
+Check TWS Settings to see if API "READ - ONLY API" is disabled, and ports are allowed to connect.
+.......
+Ending program now.
+        ''')
     exit(0)
 
-# Run Program when Market Opens
+# Connection is successful continuing next line of code.
+print('''Connection successful. Will continue placing trades now.
+---------------------------------------------------------------------------------------------------------------------
+''')
 
 # Get Open Positions from IB
 # Get number of positions left open in IB

@@ -1,5 +1,3 @@
-from ibapi.client import EClient
-from ibapi.wrapper import EWrapper
 from ib_insync import *
 from get_data import list_to_str
 import pandas as pd
