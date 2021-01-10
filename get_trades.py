@@ -64,9 +64,11 @@ def get_trade_list(file_type):
                 ytd_close.append(close_val)
                 buy_limit.append(round(close_val * 0.98, 2))
 
-            except IndexError:
+            except:
                 # If not pass and continue line of code
                 print(f"Error found in retrieving data from {ticker}.")
+                # Drop row by index if not found.
+                df = df.drop(f'{ticker}')
                 pass
 
         # Add these values into pandas dataframe
@@ -138,5 +140,4 @@ def rsi_exit(ticker):
     # Get RSI Exit Val
     rsi_exit_val = round(talib.RSI(ticker_close_data, 5).values.tolist()[-1], 2)
     return rsi_exit_val
-
 

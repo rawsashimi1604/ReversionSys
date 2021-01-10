@@ -12,7 +12,8 @@ from sys import exit
 now = datetime.now()
 
 # Output to run
-print(f'''****************************** ReversionSys System made by Gavin Loo Dec 2020 ******************************
+print(f'''
+****************************** ReversionSys System made by Gavin Loo Dec 2020 ******************************
 Programmed in Python 3.9.
 Current Date and Time is {now.strftime("%d/%m/%Y %H:%M:%S")}
 ---------------------------------------------------------------------------------------------------------------------
@@ -136,7 +137,7 @@ MarketSell {ticker}. Quantity = {qty_list[count]}. Order has been sent.''')
 ---------------------------------------------------------------------------------------------------------------------
             ''')
 
-            # Count ++
+            # Count ++ to continue loop until 4
             count += 1
 
         except IndexError:
