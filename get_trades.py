@@ -23,7 +23,7 @@ def run_data_check():
 
             except:
                 # Print out statement error if unable to pool data from Yahoo Finance
-                print(f"Error in loading {ticker} data from Yahoo Finance. Will be removed from list.")
+                print(f"Error in loading {ticker} data from Yahoo Finance. Please edit components list.")
                 error_list.append(f'{ticker}')
 
         print(error_list)
@@ -32,6 +32,12 @@ def run_data_check():
 
 def get_trade_list(file_type):
     with open('S&P500 Components.csv', 'r') as f:
+
+        # If incorrect arguments, stop code.
+        if file_type != 'csv' and 'txt':
+            print("File type invalid. Please key in either 'csv' or 'txt'.")
+            exit()
+
         # Lists to add in dataframe
         ytd_close = []
         sma = []
@@ -64,12 +70,40 @@ def get_trade_list(file_type):
                 ytd_close.append(close_val)
                 buy_limit.append(round(close_val * 0.98, 2))
 
-            except:
+                # Output to run window.
+                print(f"Download Success : {ticker}.")
+
+            except Exception:
                 # If not pass and continue line of code
                 print(f"Error found in retrieving data from {ticker}.")
-                # Drop row by index if not found.
-                df = df.drop(f'{ticker}')
-                pass
+                # Try to change ticker "." to "-" to draw data from yahoo finance.
+                ticker = ticker.replace(".", "-")
+                print(f"New Ticker name updated {ticker}. Trying to update new TA data now.")
+                try:
+                    ticker_close_data = data(f'{ticker}')['Close']
+
+                    # Get Values for SMA, RSI Entry and ROC
+                    sma_val = round(talib.SMA(ticker_close_data, 100).values.tolist()[-1], 2)
+                    rsi_entry_val = round(talib.RSI(ticker_close_data, 2).values.tolist()[-1], 2)
+                    roc_val = round(talib.ROC(ticker_close_data, 100).values.tolist()[-1], 2)
+
+                    # Get Yesterday's Close Value
+                    close_val = prevClose(f'{ticker}')
+
+                    # Add these values to existing lists
+                    sma.append(sma_val)
+                    roc.append(roc_val)
+                    rsi_entry.append(rsi_entry_val)
+                    ytd_close.append(close_val)
+                    buy_limit.append(round(close_val * 0.98, 2))
+
+                    # Output to run window.
+                    print(f"Successful downloaded {ticker}.")
+
+                except Exception:
+                    # If there is still an error, remove the ticker from the dataframe.
+                    print(f"Still unable to get data from {ticker}. Removing from dataframe.")
+                    df = df.drop(labels=f"{ticker}")
 
         # Add these values into pandas dataframe
         df['sma'] = sma
@@ -102,9 +136,6 @@ def get_trade_list(file_type):
             # Export to Text
             df.to_csv(f'{today} Reversion Trades.txt', sep='\t')
 
-        else:
-            print("File Type invalid. Please key in either csv or txt.")
-
         # Print dataframe
         print(df)
 
@@ -133,6 +164,7 @@ def trade_list(file_csv):
     return df
 
 
+# Exit criteria #1
 def rsi_exit(ticker):
     # Get close data from Yahoo Finance
     ticker_close_data = data(f'{ticker}')['Close']

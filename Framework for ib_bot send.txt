@@ -2,6 +2,9 @@ market opens
 
 get open positions from ib
 exit positions if criteria is met
+- check open positions dataframe
+- get RSI value
+- exit if any of the criteria is true
 
 check trade list
 check number of positions left open

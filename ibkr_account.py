@@ -52,12 +52,3 @@ def buying_power(dataframe):
     df = dataframe
     bp_val = float(df.loc['BuyingPower'].get('value'))
     return bp_val
-
-
-
-
-
-
-
-
-

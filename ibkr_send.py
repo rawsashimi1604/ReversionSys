@@ -145,7 +145,7 @@ MarketSell {ticker}. Quantity = {qty_list[count]}. Order has been sent.''')
             pass
 
 # Import Trade_List aka Screener
-screener_df = trade_list('2021-01-08 Reversion Trades.csv')
+screener_df = trade_list('2021-01-11 Reversion Trades.csv')
 screener_list = list(screener_df.index.values)
 
 # Get Account Dataframe
@@ -203,7 +203,7 @@ for ticker in screener_df.index[:positions_to_enter]:
     stock_ticker = f'{ticker}'
 
     # Stock Object
-    contract = Stock(f'{stock_ticker}', 'SMART', 'USD')
+    contract = Stock(f'{stock_ticker}', 'ISLAND', 'USD')
 
     # Get Price to Limit Buy
     price = screener_df.loc[f'{ticker}', 'buy_limit']
