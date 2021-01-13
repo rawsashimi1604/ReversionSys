@@ -87,6 +87,8 @@ def get_trade_list(file_type):
                     rsi_entry_val = round(talib.RSI(ticker_close_data, 2).values.tolist()[-1], 2)
                     roc_val = round(talib.ROC(ticker_close_data, 100).values.tolist()[-1], 2)
 
+                    print(f"{ticker}: sma_val = {sma_val}")
+
                     # Get Yesterday's Close Value
                     close_val = prevClose(f'{ticker}')
 
@@ -98,7 +100,7 @@ def get_trade_list(file_type):
                     buy_limit.append(round(close_val * 0.98, 2))
 
                     # Output to run window.
-                    print(f"Successful downloaded {ticker}.")
+                    print(f"Download Success : {ticker}.")
 
                 except Exception:
                     # If there is still an error, remove the ticker from the dataframe.
@@ -113,7 +115,7 @@ def get_trade_list(file_type):
         df['buy_limit'] = buy_limit
 
         # Remove tickers who do not meet criteria of Trading System
-        df = df.drop(df[(df.rsi_entry > 5) | (df.ytd_close < 5) | (df.ytd_close < df.sma)].index)
+        df = df.drop(df[(df.rsi_entry > 5) | (df.roc < 0) | (df.ytd_close < 5) | (df.ytd_close < df.sma)].index )
 
         # Remove tickers who has NaN values
         df = df.dropna()
@@ -125,8 +127,8 @@ def get_trade_list(file_type):
         # Get today's Date
         today = date.today()
 
-        # Get top 5 trades
-        df = df.iloc[:5]
+        # Get top 3 trades
+        df = df.iloc[:3]
 
         if file_type == "csv":
             # Export to CSV
