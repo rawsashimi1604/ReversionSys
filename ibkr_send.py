@@ -146,7 +146,7 @@ def sell_positions():
                 pass
 
 
-def buy_positions():
+def buy_positions(max_positions):
     # Copyright
     # Get current date time.
     now = datetime.now()
@@ -162,6 +162,7 @@ def buy_positions():
         Please only run after entering 10 days n Bars trailing stop loss as this version does not support that exit feature.
         ---------------------------------------------------------------------------------------------------------------------
         ''')
+
     # Connect to IB Servers
     try:
         ibkr.connect('127.0.0.1', 7497, clientId=1)
@@ -181,8 +182,15 @@ def buy_positions():
     print('''Connection successful. Will continue placing trades now.
         ---------------------------------------------------------------------------------------------------------------------
         ''')
+
+    # Output to run.
+    print(f'''
+    Max Positions Available : {max_positions}
+    Will execute buy program based on max positions available.
+    ---------------------------------------------------------------------------------------------------------------------
+    ''')
     # Import Trade_List aka Screener
-    screener_df = trade_list('2021-01-12 Reversion Trades.csv')
+    screener_df = trade_list('2021-01-15 Reversion Trades.csv')
     screener_list = list(screener_df.index.values)
 
     # Get Open Positions from IB
@@ -197,7 +205,7 @@ def buy_positions():
     positions_list = []
 
     # Loop through 0,1,2,3,4 index to get current open positions.
-    for x in range(0, 5):
+    for x in range(0, max_positions):
         # Try to find the positions in positions_df
         try:
             # Try to find positions_ticker using tradingClass
@@ -216,23 +224,42 @@ def buy_positions():
     # Get Account Dataframe
     df = ib_account()
 
+    # Get default currency
+    currency = df.loc['NetLiquidation', 'currency']
+
     # Get account value in Base Currency
     nlv_val = net_liquidation_value(df)
 
-    # Get account value in USD
-    nlv_val_usd = math.floor(nlv_val / usd_sgd_rate())
-    print(f'''
-    Net Liquidation Value in USD : ${nlv_val_usd}''')
+    if currency == 'SGD':
+        # Get account value in USD
+        nlv_val_usd = math.floor(nlv_val / usd_sgd_rate())
+        print(f'''
+        Account base currency is in SGD. Net Liquidation Value in USD shall be calculated.
+        Net Liquidation Value in USD : ${nlv_val_usd}''')
+    elif currency == 'USD':
+        # Else NLV shall be in USD.
+        nlv_val_usd = nlv_val
+        print(f'''
+        Account base currency is in USD. No conversion needed.
+        Net Liquidation Value in USD : ${nlv_val_usd}''')
+    else:
+        # If account is not in SGD or USD, program cannot be run. Shall exit code now.
+        print('Account base currency is neither USD or SGD. Ending program now.')
+        exit(0)
+
+    # % per position according to number of positions, given a buffer of 0.5%
+    prc_position = ((100 / max_positions) * 0.995) / 100
+    print(prc_position)
 
     # Get amount to buy per position
-    per_stock = round(0.32 * nlv_val_usd, 2)
+    per_stock = round(prc_position * nlv_val_usd, 2)
     print(f'''Amount allocated to each position : ${per_stock}
     ---------------------------------------------------------------------------------------------------------------------
     ''')
 
     # Check if any open positions corresponds to the trade_list, if it corresponds drop from trade_list
     # Loop through 0,1,2,3,4 index to remove corresponding positions.
-    for x in range(0, 5):
+    for x in range(0, max_positions):
         # Try to find any corresponding positions, remove ticker from dataframe if found.
         try:
             # Get Ticker from current positions using list index.
@@ -257,7 +284,7 @@ def buy_positions():
     ''')
 
     # Count number of positions to enter today.
-    positions_to_enter = 3 - positions_count
+    positions_to_enter = max_positions - positions_count
 
     # Create a list to store positions entered.
     current_positions = []
@@ -298,3 +325,8 @@ def buy_positions():
     ---------------------------------------------------------------------------------------------------------------------
     ''')
 
+
+# Code Workflow
+sell_positions()
+ibkr.sleep(5)
+buy_positions(3)
