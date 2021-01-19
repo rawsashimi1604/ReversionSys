@@ -1,0 +1,4 @@
+Ticker,Security,Sector,sma,roc,rsi_entry,ytd_close,buy_limit
+PAYC,Paycom,Information Technology,371.35,40.28,3.04,399.0,391.02
+FRC,First Republic Bank,Financials,127.43,33.77,4.34,153.71,150.64
+DIS,The Walt Disney Company,Communication Services,143.36,31.18,1.89,171.44,168.01

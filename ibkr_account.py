@@ -1,5 +1,5 @@
 from ib_insync import *
-from get_data import list_to_str
+from misc_func import list_to_str
 import pandas as pd
 import numpy as np
 import math

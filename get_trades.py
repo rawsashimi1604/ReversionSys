@@ -1,12 +1,14 @@
 import pandas as pd
 import numpy as np
 import talib
-from get_data import data, prevClose
+from get_yf_data import Yahoo_Data
 from datetime import date
 
 # Dataframe Settings
 pd.set_option('display.max_columns', None)
 
+# Initialize Yahoo_Data Class
+yf = Yahoo_Data(1, 1, False)
 
 def run_data_check():
     with open('S&P500 Components.csv', 'r') as f:
@@ -18,7 +20,7 @@ def run_data_check():
         for ticker in df.index:
             try:
                 # Get Data from Yahoo Finance
-                ticker_close_data = data(f'{ticker}')['Close']
+                ticker_close_data = yf.get_close(f'{ticker}')
                 sma_test = round(talib.SMA(ticker_close_data, 100).values.tolist()[-1], 2)
 
             except:
@@ -31,7 +33,7 @@ def run_data_check():
 
 
 def get_trade_list(file_type):
-    with open('S&P500 Components.csv', 'r') as f:
+    with open('C:\\Users\\Gavin\\VisualStudio\\Reversion_Sys\\ReversionSys\\S&P500 Components.csv', 'r') as f:
 
         # If incorrect arguments, stop code.
         if file_type != 'csv' and 'txt':
@@ -53,7 +55,7 @@ def get_trade_list(file_type):
             # Try to get Data from Yahoo Finance using Ticker
             try:
                 # Get Data from Yahoo Finance
-                ticker_close_data = data(f'{ticker}')['Close']
+                ticker_close_data = yf.get_close(f'{ticker}')
 
                 # Get Values for SMA, RSI Entry and ROC
                 sma_val = round(talib.SMA(ticker_close_data, 100).values.tolist()[-1], 2)
@@ -61,7 +63,7 @@ def get_trade_list(file_type):
                 roc_val = round(talib.ROC(ticker_close_data, 100).values.tolist()[-1], 2)
 
                 # Get Yesterday's Close Value
-                close_val = prevClose(f'{ticker}')
+                close_val = yf.get_prevclose(f'{ticker}')
 
                 # Add these values to existing lists
                 sma.append(sma_val)
@@ -80,7 +82,7 @@ def get_trade_list(file_type):
                 ticker = ticker.replace(".", "-")
                 print(f"New Ticker name updated {ticker}. Trying to update new TA data now.")
                 try:
-                    ticker_close_data = data(f'{ticker}')['Close']
+                    ticker_close_data = yf.get_close(f'{ticker}')
 
                     # Get Values for SMA, RSI Entry and ROC
                     sma_val = round(talib.SMA(ticker_close_data, 100).values.tolist()[-1], 2)
@@ -90,7 +92,7 @@ def get_trade_list(file_type):
                     print(f"{ticker}: sma_val = {sma_val}")
 
                     # Get Yesterday's Close Value
-                    close_val = prevClose(f'{ticker}')
+                    close_val = yf.get_prevclose(f'{ticker}')
 
                     # Add these values to existing lists
                     sma.append(sma_val)
@@ -169,7 +171,7 @@ def trade_list(file_csv):
 # Exit criteria #1
 def rsi_exit(ticker):
     # Get close data from Yahoo Finance
-    ticker_close_data = data(f'{ticker}')['Close']
+    ticker_close_data = yf.get_close(f'{ticker}')
 
     # Get RSI Exit Val
     rsi_exit_val = round(talib.RSI(ticker_close_data, 5).values.tolist()[-1], 2)

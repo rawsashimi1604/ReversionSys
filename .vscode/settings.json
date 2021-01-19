@@ -1,0 +1,7 @@
+{
+    "python.linting.pylintArgs": [
+        "--generate-members"
+    ],
+    "editor.accessibilityPageSize": 15,
+    "editor.fontSize": 15
+}
