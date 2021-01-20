@@ -24,14 +24,14 @@ class Interactive_Brokers_Custom:
     def intro(self):
         # Output to run
         print(f'''
-        ****************************** ReversionSys System made by Gavin Loo Dec 2020 ******************************
-        Programmed in Python 3.9.
-        Current Date and Time is {now.strftime("%d/%m/%Y %H:%M:%S")}
-    ---------------------------------------------------------------------------------------------------------------------
+********************************** ReversionSys System made by Gavin Loo Dec 2020 ***********************************
+Programmed in Python 3.7.
+Current Date and Time is {Interactive_Brokers_Custom.now.strftime("%d/%m/%Y %H:%M:%S")}
+---------------------------------------------------------------------------------------------------------------------
 
-        *IMPORTANT*
-        Please only run after entering 10 days n Bars trailing stop loss as this version does not support that exit feature.
-    ---------------------------------------------------------------------------------------------------------------------
+*IMPORTANT*
+Please only run after entering 10 days n Bars trailing stop loss as this version does not support that exit feature.
+---------------------------------------------------------------------------------------------------------------------
         ''')
 
 
@@ -45,16 +45,17 @@ class Interactive_Brokers_Custom:
         except ConnectionRefusedError:
             # If connection does not work, end the program.
             print('''Error in connecting to Interactive Brokers TWS Servers.
-        Please check your Internet connection, IP Address, Socket port number.
-        Check TWS Settings to see if API "READ - ONLY API" is disabled, and ports are allowed to connect.
-        .......
-        Ending program now.
+Please check your Internet connection, IP Address, Socket port number.
+Check TWS Settings to see if API "READ - ONLY API" is disabled, and ports are allowed to connect.
+.......
+Ending program now.
                 ''')
             exit(0)
 
         # Connection is successful continuing next line of code.
-        print('''Connection to Interactive Brokers server successful.
-    ---------------------------------------------------------------------------------------------------------------------
+        print('''
+Connection to Interactive Brokers server successful.
+---------------------------------------------------------------------------------------------------------------------
         ''')
         
 
@@ -133,8 +134,9 @@ class Interactive_Brokers_Custom:
         # Run if there are open positions, check for exits.
         if positions_count > 0:
             # Output to run window
-            print('''There are open positions, will check for any exit signals now.
-    ---------------------------------------------------------------------------------------------------------------------
+            print('''
+There are open positions, will check for any exit signals now.
+---------------------------------------------------------------------------------------------------------------------
         ''')
 
             # Create list to store position qty
@@ -185,7 +187,8 @@ class Interactive_Brokers_Custom:
 
                     # Print Orders sent and append list.
                     print(f'''
-        MarketSell {ticker}. Quantity = {qty_list[count]}. Order has been sent.''')
+MarketSell {ticker}. Quantity = {qty_list[count]}. Order has been sent.
+''')
 
                     # Sleep buffer of 0.5 seconds
                     Interactive_Brokers_Custom.ibkr.sleep(0.5)
@@ -199,17 +202,17 @@ class Interactive_Brokers_Custom:
         
         # Output to run window on summary
                 print(f'''
-                Positions exited: {exit_positions}. Total Positions exit: {exit_positions_count}
-                End of sell function
-    ---------------------------------------------------------------------------------------------------------------------
+Positions exited: {exit_positions}. Total Positions exit: {exit_positions_count}
+End of sell function
+---------------------------------------------------------------------------------------------------------------------
                 ''')
 
     def buy_positions(self, buy_list):
         # Output to run.
         print(f'''
-        Max Positions Available : {self.max_pos}
-        Will execute buy program based on max positions available.
-    ---------------------------------------------------------------------------------------------------------------------
+Max Positions Available : {self.max_pos}
+Will execute buy program based on max positions available.
+---------------------------------------------------------------------------------------------------------------------
         ''')
         # Import Trade_List aka Screener
         screener_df = trade_list(f'{buy_list}')
@@ -256,15 +259,17 @@ class Interactive_Brokers_Custom:
             # Get account value in USD
             nlv_val_usd = math.floor(nlv_val / self.usd_sgd_rate())
             print(f'''
-            Account base currency is in SGD. Net Liquidation Value in USD shall be calculated.
-            Net Liquidation Value in USD : ${nlv_val_usd}''')
+Account base currency is in SGD. Net Liquidation Value in USD shall be calculated.
+Net Liquidation Value in USD : ${nlv_val_usd}
+            ''')
 
         elif currency == 'USD':
             # Else NLV shall be in USD.
             nlv_val_usd = nlv_val
             print(f'''
-            Account base currency is in USD. No conversion needed.
-            Net Liquidation Value in USD : ${nlv_val_usd}''')
+Account base currency is in USD. No conversion needed.
+Net Liquidation Value in USD : ${nlv_val_usd}
+            ''')
 
         else:
             # If account is not in SGD or USD, program cannot be run. Shall exit code now.
@@ -276,8 +281,9 @@ class Interactive_Brokers_Custom:
 
         # Get amount to buy per position
         per_stock = round(prc_position * nlv_val_usd, 2)
-        print(f'''Amount allocated to each position : ${per_stock}
-    ---------------------------------------------------------------------------------------------------------------------
+        print(f'''
+Amount allocated to each position : ${per_stock}
+---------------------------------------------------------------------------------------------------------------------
         ''')
 
         # Check if any open positions corresponds to the trade_list, if it corresponds drop from trade_list
@@ -290,8 +296,8 @@ class Interactive_Brokers_Custom:
                 if ticker in screener_list:
                     # Remove if position corresponds to screener.
                     print(f'''
-        {ticker} is currently open. Will not enter {ticker} position today.
-    ---------------------------------------------------------------------------------------------------------------------
+{ticker} is currently open. Will not enter {ticker} position today.
+---------------------------------------------------------------------------------------------------------------------
         ''')
                     screener_df = screener_df.drop(f'{ticker}')
                     screener_list.remove(f'{ticker}')
@@ -302,8 +308,8 @@ class Interactive_Brokers_Custom:
 
         # Output to run
         print(f'''
-        Positions to enter today: {screener_list}
-    ---------------------------------------------------------------------------------------------------------------------
+Positions to enter today: {screener_list}
+---------------------------------------------------------------------------------------------------------------------
         ''')
 
         # Count number of positions to enter today.
@@ -341,10 +347,10 @@ class Interactive_Brokers_Custom:
 
         # Output to run window.
         print(f'''
-        Positions left to enter: {positions_to_enter}.
-        Positions entered: {current_positions}.
-        Total Positions entered: {len(current_positions)}.
-        End of program...
-    ---------------------------------------------------------------------------------------------------------------------
+Positions left to enter: {positions_to_enter}.
+Positions entered: {current_positions}.
+Total Positions entered: {len(current_positions)}.
+End of program...
+---------------------------------------------------------------------------------------------------------------------
         ''')
 
