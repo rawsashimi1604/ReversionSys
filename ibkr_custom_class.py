@@ -287,6 +287,7 @@ Amount allocated to each position : ${per_stock}
         ''')
 
         # Check if any open positions corresponds to the trade_list, if it corresponds drop from trade_list
+        # This is to make sure that when there are already similar open positions, we take the next available position
         # Loop through 0,1,2,3,4 index to remove corresponding positions.
         for x in range(0, self.max_pos):
             # Try to find any corresponding positions, remove ticker from dataframe if found.
@@ -297,6 +298,7 @@ Amount allocated to each position : ${per_stock}
                     # Remove if position corresponds to screener.
                     print(f'''
 {ticker} is currently open. Will not enter {ticker} position today.
+Removing {ticker} from list of trades to take today.
 ---------------------------------------------------------------------------------------------------------------------
         ''')
                     screener_df = screener_df.drop(f'{ticker}')

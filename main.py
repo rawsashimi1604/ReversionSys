@@ -9,7 +9,7 @@ import time
 def run_bot():
 
     # Get Market Open timing in SGT
-    market_open = "22:30:03"   
+    market_open = "20:10:03"   
 
     # Initialize custom class as ib for easier usage.
     ib = Interactive_Brokers_Custom('ReversionSys', 3)
@@ -33,7 +33,7 @@ def run_bot():
         # If time == market open, run bot.
         if dt == market_open:
             # Output to run window
-            print("Market has opened... will begin sequence now....")
+            print("Market has opened... will begin trading sequence now....")
 
             # Sell any positions that have exit criteria met.
             ib.sell_positions()
@@ -49,4 +49,7 @@ def run_bot():
     
 
 # Run bot
-run_bot()
+# run_bot()
+
+# Get Trade List
+get_trade_list('csv')

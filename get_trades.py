@@ -10,6 +10,7 @@ pd.set_option('display.max_columns', None)
 # Initialize Yahoo_Data Class
 yf = Yahoo_Data(1, 1, False)
 
+
 def run_data_check():
     with open('S&P500 Components.csv', 'r') as f:
         df = pd.read_csv(f)
@@ -132,9 +133,12 @@ def get_trade_list(file_type):
         # Get top 3 trades
         df = df.iloc[:3]
 
+        # Get directory path to export csv to
+        path = 'C:\\Users\\Gavin\\VisualStudio\\Reversion_Sys\\ReversionSys\\'
+
         if file_type == "csv":
             # Export to CSV
-            df.to_csv(f'{today} Reversion Trades.csv')
+            df.to_csv(path + f'{today} Reversion Trades.csv')
 
         elif file_type == "txt":
             # Export to Text
