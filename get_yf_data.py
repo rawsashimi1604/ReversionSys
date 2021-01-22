@@ -76,34 +76,34 @@ class Yahoo_Data:
         # Get Previous close value for stock
         ticker = yf.Ticker(f"{ticker}")
         prev_close = ticker.history(period=f"{self.period_years}y",interval=f"{self.candle_interval}d")['Close']
-        val = round(prev_close.iloc[0],2)
+        val = round(prev_close.iloc[-1],2)
         if self.print == True:
             pprint.pprint(val)
         return val
 
 
-    def get_financials(self, ticker, period="yearly"):
-        # Get financials data for stock
+    def get_bal_sheet(self, ticker, period="yearly"):
+        # Get balance sheet data for stock
         ticker = yf.Ticker(f"{ticker}")
 
-        # Get yearly financials
+        # Get yearly balance sheet
         if period == "yearly":
-            financials = ticker.financials
+            bal_sheet = ticker.balance_sheet
             if self.print == True:
-                pprint.pprint(financials)
+                pprint.pprint(bal_sheet)
         
-        # Get quarterly financials
+        # Get quarterly balance sheet
         elif period == "quarterly":
-            financials = ticker.quarterly_financials
+            bal_sheet = ticker.quarterly_balance_sheet
             if self.print == True:
-                pprint.pprint(financials)
+                pprint.pprint(bal_sheet)
         
         # Error if input wrong kwargs
         else:
             print("Invalid statement. Please use either 'yearly' or 'quarterly' for period input.")
-            financials = 'Error'
+            bal_sheet = 'Error'
         
-        return financials
+        return bal_sheet
 
     def get_recc(self, ticker):
         # Get analysts recommendations for stock
@@ -121,8 +121,6 @@ class Yahoo_Data:
         if self.print == True:
             pprint.pprint(calendar)
         return calendar
-
-
 
 
 
