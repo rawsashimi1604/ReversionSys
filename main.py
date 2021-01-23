@@ -6,10 +6,10 @@ import datetime
 import time
 
 
-def run_bot():
+def run_bot(path = "C:\\Users\Dennis Loo.000\\Desktop\\ReversionSys\\2021-01-22 Reversion Trades.csv"):
 
-    # Get Market Open timing in SGT
-    market_open = "20:10:03"   
+    # Get Market Open timing in SGT with 5 seconds of buffer
+    market_open = "23:00:45"   
 
     # Initialize custom class as ib for easier usage.
     ib = Interactive_Brokers_Custom('ReversionSys', 3)
@@ -42,14 +42,19 @@ def run_bot():
             ib.ibkr.sleep(2.5)
 
             # Buy any positions that have entry criteria met.
-            ib.buy_positions(f'C:\\Users\\Gavin\\VisualStudio\\Reversion_Sys\\ReversionSys\\{date} Reversion Trades.csv')
+            ib.buy_positions(f'{path}')
 
             # Sleep
             time.sleep(1)
-    
+
+            # Exit Code after run
+            exit(0)
+            print(f"Finished executing code @ {dt}. Shutting down program now.")
+
+
 
 # Run bot
-# run_bot()
+run_bot()
 
 # Get Trade List
-get_trade_list('csv')
+# get_trade_list('csv')

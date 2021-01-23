@@ -201,7 +201,7 @@ MarketSell {ticker}. Quantity = {qty_list[count]}. Order has been sent.
                     pass
         
         # Output to run window on summary
-                print(f'''
+        print(f'''
 Positions exited: {exit_positions}. Total Positions exit: {exit_positions_count}
 End of sell function
 ---------------------------------------------------------------------------------------------------------------------
@@ -211,7 +211,7 @@ End of sell function
         # Output to run.
         print(f'''
 Max Positions Available : {self.max_pos}
-Will execute buy program based on max positions available.
+Total number of positions for trading.
 ---------------------------------------------------------------------------------------------------------------------
         ''')
         # Import Trade_List aka Screener
@@ -228,6 +228,13 @@ Will execute buy program based on max positions available.
 
         # Create list to store positions
         positions_list = []
+
+        # Output to run.
+        print(f'''
+Positions to enter : {self.max_pos - positions_count}.
+Will execute buy program based on max positions available and positions to enter.
+---------------------------------------------------------------------------------------------------------------------
+        ''')
 
         # Loop through 0,1,2,3,4 index to get current open positions.
         for x in range(0, self.max_pos):
@@ -261,6 +268,7 @@ Will execute buy program based on max positions available.
             print(f'''
 Account base currency is in SGD. Net Liquidation Value in USD shall be calculated.
 Net Liquidation Value in USD : ${nlv_val_usd}
+---------------------------------------------------------------------------------------------------------------------
             ''')
 
         elif currency == 'USD':
@@ -269,6 +277,7 @@ Net Liquidation Value in USD : ${nlv_val_usd}
             print(f'''
 Account base currency is in USD. No conversion needed.
 Net Liquidation Value in USD : ${nlv_val_usd}
+---------------------------------------------------------------------------------------------------------------------
             ''')
 
         else:
@@ -347,11 +356,17 @@ Positions to enter today: {screener_list}
             # Sleep buffer of 0.5 seconds
             Interactive_Brokers_Custom.ibkr.sleep(0.5)
 
+        # Get Open Positions from IB
+        # Get number of positions left open in IB
+        positions = Interactive_Brokers_Custom.ibkr.positions()
+        positions_count = len(positions)
+
         # Output to run window.
         print(f'''
 Positions left to enter: {positions_to_enter}.
 Positions entered: {current_positions}.
 Total Positions entered: {len(current_positions)}.
+Total Positions open currently: {positions_count}.
 End of program...
 ---------------------------------------------------------------------------------------------------------------------
         ''')

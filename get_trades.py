@@ -33,8 +33,8 @@ def run_data_check():
         return error_list
 
 
-def get_trade_list(file_type):
-    with open('C:\\Users\\Gavin\\VisualStudio\\Reversion_Sys\\ReversionSys\\S&P500 Components.csv', 'r') as f:
+def get_trade_list(file_type, components_path = "C:\\Users\\Gavin\\VisualStudio\\Reversion_Sys\\ReversionSys\\S&P500 Components.csv", export_path = "C:\\Users\\Gavin\\VisualStudio\\Reversion_Sys\\ReversionSys"):
+    with open(components_path, 'r') as f:
 
         # If incorrect arguments, stop code.
         if file_type != 'csv' and 'txt':
@@ -134,7 +134,7 @@ def get_trade_list(file_type):
         df = df.iloc[:3]
 
         # Get directory path to export csv to
-        path = 'C:\\Users\\Gavin\\VisualStudio\\Reversion_Sys\\ReversionSys\\'
+        path = f'{export_path}\\'
 
         if file_type == "csv":
             # Export to CSV
