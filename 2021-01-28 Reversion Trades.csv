@@ -1,0 +1,4 @@
+Ticker,Security,Sector,sma,roc,rsi_entry,ytd_close,buy_limit
+TPR,Tapestry Inc.,Consumer Discretionary,25.01,107.81,3.04,30.61,30.0
+UAA,Under Armour (Class A),Consumer Discretionary,15.0,66.99,4.12,17.35,17.0
+GM,General Motors,Consumer Discretionary,38.96,59.37,4.01,49.34,48.35

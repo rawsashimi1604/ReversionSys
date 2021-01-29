@@ -1,0 +1,4 @@
+Ticker,Security,Sector,sma,roc,rsi_entry,ytd_close,buy_limit
+DFS,Discover Financial Services,Financials,73.89,64.84,2.15,86.82,85.08
+OXY,Occidental Petroleum,Energy,14.37,63.55,3.65,20.38,19.97
+OKE,ONEOK,Energy,33.18,60.06,2.52,42.12,41.28
