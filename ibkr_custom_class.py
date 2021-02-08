@@ -17,7 +17,6 @@ class Interactive_Brokers_Custom:
     now = datetime.now()
 
     def __init__(self, name, max_pos):
-        # Initializes Interactive_Brokers_Custom Class
         self.name = name
         self.max_pos = max_pos
 
@@ -26,7 +25,7 @@ class Interactive_Brokers_Custom:
         print(f'''
 ********************************** ReversionSys System made by Gavin Loo Dec 2020 ***********************************
 Programmed in Python 3.7.
-Current Date and Time is {Interactive_Brokers_Custom.now.strftime("%d/%m/%Y %H:%M:%S")}
+Current Date and Time is {self.now.strftime("%d/%m/%Y %H:%M:%S")}
 ---------------------------------------------------------------------------------------------------------------------
 
 *IMPORTANT*
@@ -35,11 +34,11 @@ Please only run after entering 10 days n Bars trailing stop loss as this version
         ''')
 
 
-    def connect(self):
+    def connect(self, ip='127.0.0.1', socket=7497, clientId=1):
         # Connects to ibkr TWS server to run bot.
         # Connect to IB Servers
         try:
-            Interactive_Brokers_Custom.ibkr.connect('127.0.0.1', 7497, clientId=1)
+            self.ibkr.connect(ip, socket, clientId=clientId)
             print("Connecting to Interactive Brokers TWS Servers......")
 
         except ConnectionRefusedError:
@@ -62,11 +61,11 @@ Connection to Interactive Brokers server successful.
     def get_account(self):
         # Returns Dataframe of Account Information
         # Find Account Name
-        account = Interactive_Brokers_Custom.ibkr.managedAccounts()[0]
+        account = self.ibkr.managedAccounts()[0]
         acc_str = list_to_str(account)
 
         # Get Account Summary Dataframe
-        acc_val_list = Interactive_Brokers_Custom.ibkr.accountSummary(acc_str)
+        acc_val_list = self.ibkr.accountSummary(acc_str)
         df = util.df(acc_val_list)
         df = df.set_index('tag')
 
@@ -76,9 +75,8 @@ Connection to Interactive Brokers server successful.
 
     def usd_sgd_rate(self):
         # Gets the current USD_SGD Exchange Rate
-
         pair_name = Forex('USDSGD')
-        bars = Interactive_Brokers_Custom.ibkr.reqHistoricalData(
+        bars = self.ibkr.reqHistoricalData(
             pair_name, endDateTime='', durationStr='300 S',
             barSizeSetting='5 mins', whatToShow='MIDPOINT', useRTH=True)
         df = util.df(bars)
@@ -102,7 +100,7 @@ Connection to Interactive Brokers server successful.
     def sell_positions(self):
         # Get Open Positions from IB
         # Get number of positions left open in IB
-        positions = Interactive_Brokers_Custom.ibkr.positions()
+        positions = self.ibkr.positions()
         positions_count = len(positions)
 
         # Get Dataframe for open positions
@@ -131,6 +129,9 @@ Connection to Interactive Brokers server successful.
         # Output to run window
         print(f"Total positions : {positions_count}, Active Positions: {positions_list}")
 
+        # Create a list to store exit positions.
+        exit_positions = []
+
         # Run if there are open positions, check for exits.
         if positions_count > 0:
             # Output to run window
@@ -154,8 +155,6 @@ There are open positions, will check for any exit signals now.
                 except IndexError:
                     pass
 
-            # Create a list to store exit positions.
-            exit_positions = []
 
             # Check RSI Value of each position
             for ticker in positions_list:
@@ -165,9 +164,6 @@ There are open positions, will check for any exit signals now.
                     exit_positions.append(f'{ticker}')
                 else:
                     pass
-
-            # Count number of exit positions
-            exit_positions_count = len(exit_positions)
 
             if exit_positions_count == 0:
                 print("No postiions to be exited.")
@@ -183,7 +179,7 @@ There are open positions, will check for any exit signals now.
                     order = MarketOrder("SELL", f"{qty_list[count]}")
 
                     # Send Order using Ticker Object and Order Object, Returns Trade Class
-                    trade = Interactive_Brokers_Custom.ibkr.placeOrder(contract, order)
+                    trade = self.ibkr.placeOrder(contract, order)
 
                     # Print Orders sent and append list.
                     print(f'''
@@ -191,7 +187,7 @@ MarketSell {ticker}. Quantity = {qty_list[count]}. Order has been sent.
 ''')
 
                     # Sleep buffer of 0.5 seconds
-                    Interactive_Brokers_Custom.ibkr.sleep(0.5)
+                    self.ibkr.sleep(0.5)
 
                     # Count ++ to continue loop until 4
                     count += 1
@@ -199,6 +195,9 @@ MarketSell {ticker}. Quantity = {qty_list[count]}. Order has been sent.
                 except IndexError:
                     print("No more elements in qty_list. Will continue next line of code now.")
                     pass
+
+        # Count number of exit positions
+        exit_positions_count = len(exit_positions)
         
         # Output to run window on summary
         print(f'''
@@ -220,7 +219,7 @@ Total number of positions for trading.
 
         # Get Open Positions from IB
         # Get number of positions left open in IB
-        positions = Interactive_Brokers_Custom.ibkr.positions()
+        positions = self.ibkr.positions()
         positions_count = len(positions)
 
         # Get Dataframe for open positions
@@ -347,18 +346,18 @@ Positions to enter today: {screener_list}
             order = LimitOrder("BUY", f'{qty}', f'{price}')
 
             # Send Order using Ticker Object and Order Object, Returns Trade Class
-            trade = Interactive_Brokers_Custom.ibkr.placeOrder(contract, order)
+            trade = self.ibkr.placeOrder(contract, order)
 
             # Print Orders sent and append list.
             print(f"BuyLimit {ticker} @ {price}. Quantity = {qty}. Order has been sent.")
             current_positions.append(f'{ticker}')
 
             # Sleep buffer of 0.5 seconds
-            Interactive_Brokers_Custom.ibkr.sleep(0.5)
+            self.ibkr.sleep(0.5)
 
         # Get Open Positions from IB
         # Get number of positions left open in IB
-        positions = Interactive_Brokers_Custom.ibkr.positions()
+        positions = self.ibkr.positions()
         positions_count = len(positions)
 
         # Output to run window.

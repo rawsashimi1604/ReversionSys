@@ -82,45 +82,5 @@ class Yahoo_Data:
         return val
 
 
-    def get_bal_sheet(self, ticker, period="yearly"):
-        # Get balance sheet data for stock
-        ticker = yf.Ticker(f"{ticker}")
-
-        # Get yearly balance sheet
-        if period == "yearly":
-            bal_sheet = ticker.balance_sheet
-            if self.print == True:
-                pprint.pprint(bal_sheet)
-        
-        # Get quarterly balance sheet
-        elif period == "quarterly":
-            bal_sheet = ticker.quarterly_balance_sheet
-            if self.print == True:
-                pprint.pprint(bal_sheet)
-        
-        # Error if input wrong kwargs
-        else:
-            print("Invalid statement. Please use either 'yearly' or 'quarterly' for period input.")
-            bal_sheet = 'Error'
-        
-        return bal_sheet
-
-    def get_recc(self, ticker):
-        # Get analysts recommendations for stock
-        ticker = yf.Ticker(f"{ticker}")
-        recc = ticker.recommendations
-        if self.print == True:
-            pprint.pprint(recc)
-        return recc    
-
-
-    def get_calendar(self, ticker):
-        # Get next event, earnings etc.
-        ticker = yf.Ticker(f"{ticker}")
-        calendar = ticker.calendar
-        if self.print == True:
-            pprint.pprint(calendar)
-        return calendar
-
 
 

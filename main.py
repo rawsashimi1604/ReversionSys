@@ -6,10 +6,10 @@ import datetime
 import time
 
 
-def run_bot(path = "C:\\Users\\Gavin\\VisualStudio\\Reversion_Sys\\ReversionSys\\2021-01-25 Reversion Trades.csv"):
+def run_bot(path = r"C:\\Users\\Gavin\\VisualStudio\\Reversion_Sys\\ReversionSys\\2021-01-25 Reversion Trades.csv"):
 
     # Get Market Open timing in SGT with 5 seconds of buffer
-    market_open = "22:30:05"   
+    market_open = "22:23:30"   
 
     # Initialize custom class as ib for easier usage.
     ib = Interactive_Brokers_Custom('ReversionSys', 3)
@@ -54,7 +54,7 @@ def run_bot(path = "C:\\Users\\Gavin\\VisualStudio\\Reversion_Sys\\ReversionSys\
 
 
 # Run bot
-# run_bot(path = r'C:\\Users\\Gavin\\VisualStudio\\Reversion_Sys\\ReversionSys\\2021-01-26 Reversion Trades.csv')
+# run_bot(path = r'C:\\Users\\Gavin\\VisualStudio\\Reversion_Sys\\ReversionSys\\2021-02-08 Reversion Trades.csv')
 
 # Get Trade List
 get_trade_list('csv',r'C:\\Users\\Gavin\\VisualStudio\\Reversion_Sys\\ReversionSys\S&P500 Components.csv',r'C:\\Users\\Gavin\\VisualStudio\\Reversion_Sys\\ReversionSys')
