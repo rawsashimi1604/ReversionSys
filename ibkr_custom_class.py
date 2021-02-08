@@ -131,6 +131,9 @@ Connection to Interactive Brokers server successful.
         # Output to run window
         print(f"Total positions : {positions_count}, Active Positions: {positions_list}")
 
+        # Create a list to store exit positions.
+        exit_positions = []
+
         # Run if there are open positions, check for exits.
         if positions_count > 0:
             # Output to run window
@@ -154,8 +157,6 @@ There are open positions, will check for any exit signals now.
                 except IndexError:
                     pass
 
-            # Create a list to store exit positions.
-            exit_positions = []
 
             # Check RSI Value of each position
             for ticker in positions_list:
@@ -165,9 +166,6 @@ There are open positions, will check for any exit signals now.
                     exit_positions.append(f'{ticker}')
                 else:
                     pass
-
-            # Count number of exit positions
-            exit_positions_count = len(exit_positions)
 
             if exit_positions_count == 0:
                 print("No postiions to be exited.")
@@ -199,6 +197,9 @@ MarketSell {ticker}. Quantity = {qty_list[count]}. Order has been sent.
                 except IndexError:
                     print("No more elements in qty_list. Will continue next line of code now.")
                     pass
+
+        # Count number of exit positions
+        exit_positions_count = len(exit_positions)
         
         # Output to run window on summary
         print(f'''
