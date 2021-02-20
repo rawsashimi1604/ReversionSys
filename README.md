@@ -21,6 +21,7 @@ Huge thanks to *erdiwit* for creating ib_insync class to make programming this m
 - Configure TWS API Settings (ip, socket, enable)
 - Run python code
 - Leave TWS on
+- Use main.py to run get_trade_list or run_bot
 
 ### Tips and Tricks
 - Update S&P 500 Components every month to account for changes in index.
