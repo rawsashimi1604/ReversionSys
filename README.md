@@ -15,8 +15,8 @@ Huge thanks to *erdiwit* for creating ib_insync class to make programming this m
 - pprint
 
 ### Tasks to do
-[ ] Provide way to change parameters in system
-[ ] Documentation
+- [ ] Provide way to change parameters in system
+- [ ] Documentation
 
 ### Installation
 - Install TWS Workstation
