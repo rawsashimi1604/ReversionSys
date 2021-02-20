@@ -7,12 +7,26 @@ Hey everyone! :wave: This is a stock trading system that I developed, using a tr
 Huge thanks to *erdiwit* for creating ib_insync class to make programming this much more linear!
 
 ### Required modules
+- talib library (use whl to install, file in package)
+- pandas
+- numpy
+- yfinance
+- ib_insync
+- pprint
+
+### Installation
+- Install TWS Workstation
+- Install required modules
+- Run TWS Workstation
+- Configure TWS API Settings (ip, socket, enable)
+- Run python code
+- Leave TWS on
 
 ### Tips and Tricks
 - Update S&P 500 Components every month to account for changes in index.
 - Get list of trades everyday before the market opens.
 
-### How the trading system works?
+### How does the trading system work?
 #### Research material and background
 For starters, I was looking into some stock trading strategies and methods that have proved profitable so far. I came across this book, **Short Term Trading Strategies that Work by Larry Connors.**
 
