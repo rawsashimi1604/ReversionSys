@@ -207,6 +207,9 @@ MarketSell {ticker}. Quantity = {qty_list[count]}. Order has been sent.
                 except IndexError:
                     print("No more elements in qty_list. Will continue next line of code now.")
                     pass
+
+        # Count number of exit positions
+        exit_positions_count = len(exit_positions)
         
         # Output to run window on summary
         print(f'''

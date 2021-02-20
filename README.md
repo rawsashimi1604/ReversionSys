@@ -1,5 +1,88 @@
-# ReversionSys
+# Mean Reversion Stock Trading System, ReversionSys
+*Made by rawsashimi1604*
 
-# Reversion Sys Trading System for Interactive Brokers
-# Able to get trades and automate trading daily.
-# Simply use main.py to either run bot, or get list of trades
+### Introduction
+Hey everyone! :wave: This is a stock trading system that I developed, using a trading software called **Amibroker, Python and TWS Interactive Brokers API**.
+
+Huge thanks to *erdiwit* for creating ib_insync class to make programming this much more linear!
+
+### Required modules
+
+### Tips and Tricks
+- Update S&P 500 Components every month to account for changes in index.
+- Get list of trades everyday before the market opens.
+
+### How the trading system works?
+#### Research material and background
+For starters, I was looking into some stock trading strategies and methods that have proved profitable so far. I came across this book, **Short Term Trading Strategies that Work by Larry Connors.**
+
+Larry described some useful pointers backed by statistics such as:
+- Buying pullbacks, and using the Relative Strength Index (RSI) to detect them,
+- Buy stocks in an uptrend,
+- Using intra-day pullbacks to get a better entry price.
+
+As such, I used some of his parameters and tested it out on a backtesting software, **Amibroker.**
+
+#### Trading System
+Here were the **parameters** I used for my trading system.
+
+- *Moving Average Period* = 100
+- *RSI Period* = 2
+- *RSI Buy Signal* = 5
+- *RSI Exit Period* = 5
+- *RSI Exit Signal* = 40
+- *Max Positions to Hold* = 3
+- *Exit After n Days* = 10
+- *Limit Order* = 1.5%
+
+For the stock universe, I used only the **S&P500 Index Stocks.**
+
+As for position sizing, each time a position was available, it took up 33% of my portfolio.
+
+As for the ranking system, I chose stocks that ranked the highest in the *Rate of Change(ROC) = 100* and *ROC > 0* parameter. This is to choose stocks with high relative strength only.
+
+#### Example of the trading system (using PineScript from Tradingview)
+> *Here is an entry example from TradingView*
+![AAPL TRADING EXAMPLE](https://user-images.githubusercontent.com/75880261/108593823-0b3ec200-73b1-11eb-8c3c-6a74a165d747.png)
+
+> *Here is an exit example*
+![AAPL TRADING EXAMPLE (1)](https://user-images.githubusercontent.com/75880261/108593816-011cc380-73b1-11eb-90a3-80d80a30d6af.png)
+
+> For more information, you can refer to the amibroker AFL code.
+
+### Getting a trade list everyday.
+To get the list of trades today, we use the function *get_trade_list()*
+
+Parameters:
+  - file_type : *str*
+    - Use either "csv" or "txt"
+      - Specifies what file_type to receive today's list of trades in.
+  - components_path : *str*
+    - Specifies where to find list of tickers to trade in. (S&P500 Component List)
+  - export_path : *str*
+    - Specifies where to export today's list of trades.
+ 
+```python
+def get_trade_list(file_type, components_path=r"C:\\Users\\rawsashimi1604\\VisualStudio\\Reversion_Sys\\ReversionSys\\S&P500 Components.csv", export_path="C:\\Users\\rawsashimi1604\\VisualStudio\\Reversion_Sys\\ReversionSys"):
+  # some code
+  returns trade_list
+```
+
+To run the bot we use the function *run_bot*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
