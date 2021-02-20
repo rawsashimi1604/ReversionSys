@@ -51,7 +51,7 @@ As for the ranking system, I chose stocks that ranked the highest in the *Rate o
 > For more information, you can refer to the amibroker AFL code.
 
 ### Getting a trade list everyday.
-To get the list of trades today, we use the function *get_trade_list()*
+To get the list of trades today, we use the function *get_trade_list*.
 
 Parameters:
   - file_type : *str*
@@ -61,28 +61,35 @@ Parameters:
     - Specifies where to find list of tickers to trade in. (S&P500 Component List)
   - export_path : *str*
     - Specifies where to export today's list of trades.
+
+Returns:
+  - None
  
 ```python
 def get_trade_list(file_type, components_path=r"C:\\Users\\rawsashimi1604\\VisualStudio\\Reversion_Sys\\ReversionSys\\S&P500 Components.csv", export_path="C:\\Users\\rawsashimi1604\\VisualStudio\\Reversion_Sys\\ReversionSys"):
   # some code
-  returns trade_list
+  returns None
 ```
 
-To run the bot we use the function *run_bot*
+To run the bot we use the function *run_bot*.
 
+Parameters:
+  - path : *str*
+    - Specifies where list of trades csv is.
+  - market_open_time : *str*
+    - Specifies what time in local time the stock market opens. Default is *"22:30:05"*.
+  - ip : *str*
+    - Specifies TWS IP Address Settings. Default is *"127.0.0.1"*.
+  - socket : *int*
+    - Specifies TWS Socket Settings. Default is *7497*.
+  - clientId : *int*
+    - Specifies TWS ClientID Settings. Default is *1*.
 
+Returns:
+  - None
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+```python
+def run_bot(path = "C:\\Users\\rawsashimi1604\\VisualStudio\\Reversion_Sys\\ReversionSys\\2021-01-25 Reversion Trades.csv", market_open_time = "22:30:05", ip='127.0.0.1', socket=7497, clientId=1):
+  # some code
+  returns None
+```
