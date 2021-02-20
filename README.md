@@ -4,7 +4,9 @@
 ### Introduction
 Hey everyone! :wave: This is a stock trading system that I developed, using a trading software called **Amibroker, Python and TWS Interactive Brokers API**.
 
-Huge thanks to *erdiwit* for creating ib_insync class to make programming this much more linear!
+Huge thanks to *erdiwit* for creating *ib_insync* module to make programming this much more linear!
+
+![STATISTICS](https://user-images.githubusercontent.com/75880261/108598516-f8d08280-73c8-11eb-8cd6-7eea9db620e5.PNG)
 
 ### Required modules
 - talib library (use whl to install, file in package)
