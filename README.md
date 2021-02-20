@@ -21,13 +21,26 @@ As such, I used some of his parameters and tested it out on a backtesting softwa
 #### Trading System
 Here were the **parameters** I used for my trading system.
 
-> *Moving Average Period* = 100
-> *RSI Period* = 2
-> *RSI Buy Signal* = 5
-> *RSI Exit Signal* = 40
-> *Max Positions to Hold* = 3
-> *Exit After n Days* = 10
-> *Limit Order* = 1.5%
+- *Moving Average Period* = 100
+- *RSI Period* = 2
+- *RSI Buy Signal* = 5
+- *RSI Exit Period* = 5
+- *RSI Exit Signal* = 40
+- *Max Positions to Hold* = 3
+- *Exit After n Days* = 10
+- *Limit Order* = 1.5%
+
+For the stock universe, I used only the **S&P500 Stocks.**
+
+As for position sizing, each time a position was available, it took up 33% of my portfolio.
+
+As for the ranking system, I chose stocks that ranked the highest in the *Rate of Change(ROC) = 100* and *ROC > 0* parameter. This is to choose stocks with high relative strength only.
+
+#### Example of the trading system (using PineScript from Tradingview)
+
+
+
+
 
 
 
