@@ -67,7 +67,11 @@ As for the ranking system, I chose stocks that ranked the highest in the *Rate o
 
 ### Getting a trade list everyday.
 To get the list of trades today, we use the function *get_trade_list*.
-
+```python
+def get_trade_list(file_type, components_path=r"C:\\Users\\rawsashimi1604\\VisualStudio\\Reversion_Sys\\ReversionSys\\S&P500 Components.csv", export_path="C:\\Users\\rawsashimi1604\\VisualStudio\\Reversion_Sys\\ReversionSys"):
+  # some code
+  returns None
+```
 Parameters:
   - file_type : *str*
     - Use either "csv" or "txt"
@@ -79,15 +83,13 @@ Parameters:
 
 Returns:
   - None
- 
+
+To run the bot we use the function *run_bot*.
 ```python
-def get_trade_list(file_type, components_path=r"C:\\Users\\rawsashimi1604\\VisualStudio\\Reversion_Sys\\ReversionSys\\S&P500 Components.csv", export_path="C:\\Users\\rawsashimi1604\\VisualStudio\\Reversion_Sys\\ReversionSys"):
+def run_bot(path = "C:\\Users\\rawsashimi1604\\VisualStudio\\Reversion_Sys\\ReversionSys\\2021-01-25 Reversion Trades.csv", market_open_time = "22:30:05", ip='127.0.0.1', socket=7497, clientId=1):
   # some code
   returns None
 ```
-
-To run the bot we use the function *run_bot*.
-
 Parameters:
   - path : *str*
     - Specifies where list of trades csv is.
@@ -102,9 +104,3 @@ Parameters:
 
 Returns:
   - None
-
-```python
-def run_bot(path = "C:\\Users\\rawsashimi1604\\VisualStudio\\Reversion_Sys\\ReversionSys\\2021-01-25 Reversion Trades.csv", market_open_time = "22:30:05", ip='127.0.0.1', socket=7497, clientId=1):
-  # some code
-  returns None
-```
