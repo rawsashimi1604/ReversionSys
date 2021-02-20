@@ -6,10 +6,10 @@ import datetime
 import time
 
 
-def run_bot(path = "C:\\Users\\Gavin\\VisualStudio\\Reversion_Sys\\ReversionSys\\2021-01-25 Reversion Trades.csv"):
+def run_bot(path = "C:\\Users\\rawsashimi1604\\VisualStudio\\Reversion_Sys\\ReversionSys\\2021-01-25 Reversion Trades.csv", market_open_time = "22:30:05", ip='127.0.0.1', socket=7497, clientId=1):
 
     # Get Market Open timing in SGT with 5 seconds of buffer
-    market_open = "22:30:05"   
+    market_open = market_open_time 
 
     # Initialize custom class as ib for easier usage.
     ib = Interactive_Brokers_Custom('ReversionSys', 3)
@@ -18,7 +18,7 @@ def run_bot(path = "C:\\Users\\Gavin\\VisualStudio\\Reversion_Sys\\ReversionSys\
     ib.intro()
 
     # Connect to interactive brokers TWS Server
-    ib.connect()
+    ib.connect(ip=ip, socket=socket, clientId=clientId)
 
     # Run bot loop
     while True:
@@ -32,7 +32,6 @@ def run_bot(path = "C:\\Users\\Gavin\\VisualStudio\\Reversion_Sys\\ReversionSys\
 
         # If time == market open, run bot.
         if dt == market_open:
-            # Output to run window
             print("Market has opened... will begin trading sequence now....")
 
             # Sell any positions that have exit criteria met.
@@ -44,17 +43,14 @@ def run_bot(path = "C:\\Users\\Gavin\\VisualStudio\\Reversion_Sys\\ReversionSys\
             # Buy any positions that have entry criteria met.
             ib.buy_positions(f'{path}')
 
-            # Sleep
             time.sleep(1)
-
-            # Exit Code after run
             exit(0)
             print(f"Finished executing code @ {dt}. Shutting down program now.")
 
 
 
 # Run bot
-# run_bot(path = r'C:\\Users\\Gavin\\VisualStudio\\Reversion_Sys\\ReversionSys\\2021-01-26 Reversion Trades.csv')
+run_bot(path = r'C:\Users\Dennis Loo.000\Desktop\ReversionSys\2021-02-11 Reversion Trades.csv')
 
 # Get Trade List
-get_trade_list('csv',r'C:\\Users\\Gavin\\VisualStudio\\Reversion_Sys\\ReversionSys\S&P500 Components.csv',r'C:\\Users\\Gavin\\VisualStudio\\Reversion_Sys\\ReversionSys')
+# get_trade_list('csv',r'C:\\Users\Dennis Loo.000\\Desktop\\ReversionSys\\S&P500 Components.csv',r'C:\\Users\Dennis Loo.000\\Desktop\\ReversionSys\\')
