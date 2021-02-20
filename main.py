@@ -5,6 +5,8 @@ from get_trades import get_trade_list
 import datetime
 import time
 
+# Dataframe Settings
+pd.set_option('display.max_columns', None)
 
 def run_bot(path = "C:\\Users\\rawsashimi1604\\VisualStudio\\Reversion_Sys\\ReversionSys\\2021-01-25 Reversion Trades.csv", market_open_time = "22:30:05", ip='127.0.0.1', socket=7497, clientId=1):
 
@@ -50,7 +52,7 @@ def run_bot(path = "C:\\Users\\rawsashimi1604\\VisualStudio\\Reversion_Sys\\Reve
 
 
 # Run bot
-run_bot(path = r'C:\Users\Dennis Loo.000\Desktop\ReversionSys\2021-02-11 Reversion Trades.csv')
+# run_bot(path = r'C:\Users\Dennis Loo.000\Desktop\ReversionSys\Trades_to_take\2021-02-11 Reversion Trades.csv')
 
 # Get Trade List
-# get_trade_list('csv',r'C:\\Users\Dennis Loo.000\\Desktop\\ReversionSys\\S&P500 Components.csv',r'C:\\Users\Dennis Loo.000\\Desktop\\ReversionSys\\')
+get_trade_list('csv',r'C:\\Users\Dennis Loo.000\\Desktop\\ReversionSys\\S&P500 Components.csv',r'C:\\Users\Dennis Loo.000\\Desktop\\ReversionSys\\Trades_to_take')

@@ -1,0 +1,4 @@
+Ticker,Security,Sector,sma,roc,rsi_entry,ytd_close,buy_limit
+KEYS,Keysight Technologies,Information Technology,124.54,44.91,4.17,142.19,139.35
+ATVI,Activision Blizzard,Communication Services,85.7,24.48,4.41,100.8,98.78
+IRM,Iron Mountain Incorporated,Real Estate,28.64,23.78,3.83,32.17,31.53

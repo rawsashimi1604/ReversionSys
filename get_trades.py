@@ -10,9 +10,8 @@ pd.set_option('display.max_columns', None)
 # Initialize Yahoo_Data Class
 yf = Yahoo_Data(1, 1, False)
 
-def get_trade_list(file_type, components_path = "C:\\Users\\Gavin\\VisualStudio\\Reversion_Sys\\ReversionSys\\S&P500 Components.csv", export_path = "C:\\Users\\Gavin\\VisualStudio\\Reversion_Sys\\ReversionSys"):
+def get_trade_list(file_type, components_path = r"C:\Users\Gavin\VisualStudio\Reversion_Sys\ReversionSys\\S&P500 Components.csv", export_path = r"C:\Users\Dennis Loo.000\Desktop\ReversionSys\Trades_to_take"):
     with open(components_path, 'r') as f:
-
         # If incorrect arguments, stop code.
         if file_type != 'csv' and 'txt':
             print("File type invalid. Please key in either 'csv' or 'txt'.")
@@ -117,7 +116,7 @@ def get_trade_list(file_type, components_path = "C:\\Users\\Gavin\\VisualStudio\
 
         elif file_type == "txt":
             df.to_csv(f'{today} Reversion Trades.txt', sep='\t')
-            
+
         print(df)
 
 
