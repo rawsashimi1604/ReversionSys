@@ -10,32 +10,8 @@ pd.set_option('display.max_columns', None)
 # Initialize Yahoo_Data Class
 yf = Yahoo_Data(1, 1, False)
 
-
-def run_data_check():
-    with open('S&P500 Components.csv', 'r') as f:
-        df = pd.read_csv(f)
-        df = df.set_index('Ticker')
-
-        error_list = []
-
-        for ticker in df.index:
-            try:
-                # Get Data from Yahoo Finance
-                ticker_close_data = yf.get_close(f'{ticker}')
-                sma_test = round(talib.SMA(ticker_close_data, 100).values.tolist()[-1], 2)
-
-            except:
-                # Print out statement error if unable to pool data from Yahoo Finance
-                print(f"Error in loading {ticker} data from Yahoo Finance. Please edit components list.")
-                error_list.append(f'{ticker}')
-
-        print(error_list)
-        return error_list
-
-
-def get_trade_list(file_type, components_path = "C:\\Users\\Gavin\\VisualStudio\\Reversion_Sys\\ReversionSys\\S&P500 Components.csv", export_path = "C:\\Users\\Gavin\\VisualStudio\\Reversion_Sys\\ReversionSys"):
+def get_trade_list(file_type, components_path = r"C:\Users\Gavin\VisualStudio\Reversion_Sys\ReversionSys\\S&P500 Components.csv", export_path = r"C:\Users\Dennis Loo.000\Desktop\ReversionSys\Trades_to_take"):
     with open(components_path, 'r') as f:
-
         # If incorrect arguments, stop code.
         if file_type != 'csv' and 'txt':
             print("File type invalid. Please key in either 'csv' or 'txt'.")
@@ -126,7 +102,6 @@ def get_trade_list(file_type, components_path = "C:\\Users\\Gavin\\VisualStudio\
         # Sort rows by ROC Value
         df = df.sort_values(by=['roc'], ascending=False)
 
-        # Print out new dataframe on a CSV file.
         # Get today's Date
         today = date.today()
 
@@ -137,14 +112,11 @@ def get_trade_list(file_type, components_path = "C:\\Users\\Gavin\\VisualStudio\
         path = f'{export_path}\\'
 
         if file_type == "csv":
-            # Export to CSV
             df.to_csv(path + f'{today} Reversion Trades.csv')
 
         elif file_type == "txt":
-            # Export to Text
             df.to_csv(f'{today} Reversion Trades.txt', sep='\t')
 
-        # Print dataframe
         print(df)
 
 

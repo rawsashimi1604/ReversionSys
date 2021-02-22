@@ -8,6 +8,7 @@ from ib_insync import *
 from datetime import datetime
 from sys import exit
 
+
 class Interactive_Brokers_Custom:
     ### Commands for interative brokers bot ###
     # Initialize IB class as ibkr
@@ -73,7 +74,7 @@ Connection to Interactive Brokers server successful.
         return df
 
 
-    def usd_sgd_rate(self):
+    def forex_rate(self, pair='USDSGD'):
         # Gets the current USD_SGD Exchange Rate
         pair_name = Forex('USDSGD')
         bars = self.ibkr.reqHistoricalData(
@@ -162,11 +163,15 @@ There are open positions, will check for any exit signals now.
                 rsi_val = rsi_exit(f'{ticker}')
                 if rsi_val > 40:
                     exit_positions.append(f'{ticker}')
+                    print(exit_positions)
                 else:
                     pass
 
             if exit_positions_count == 0:
                 print("No postiions to be exited.")
+            
+            else:
+                print(f'{exit_positions_count} positions to be exited.')
             
             count = 0
             # Exit Orders if Exit condition is met.
@@ -261,9 +266,9 @@ Will execute buy program based on max positions available and positions to enter
         # Get account value in Base Currency
         nlv_val = self.net_liquidation_value(df)
 
-        if currency == 'SGD':
+        if currency != 'USD':
             # Get account value in USD
-            nlv_val_usd = math.floor(nlv_val / self.usd_sgd_rate())
+            nlv_val_usd = math.floor(nlv_val / self.forex_rate())
             print(f'''
 Account base currency is in SGD. Net Liquidation Value in USD shall be calculated.
 Net Liquidation Value in USD : ${nlv_val_usd}

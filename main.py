@@ -5,6 +5,8 @@ from get_trades import get_trade_list
 import datetime
 import time
 
+# Dataframe Settings
+pd.set_option('display.max_columns', None)
 
 def run_bot(path = r"C:\\Users\\Gavin\\VisualStudio\\Reversion_Sys\\ReversionSys\\2021-01-25 Reversion Trades.csv"):
 
@@ -18,7 +20,7 @@ def run_bot(path = r"C:\\Users\\Gavin\\VisualStudio\\Reversion_Sys\\ReversionSys
     ib.intro()
 
     # Connect to interactive brokers TWS Server
-    ib.connect()
+    ib.connect(ip=ip, socket=socket, clientId=clientId)
 
     # Run bot loop
     while True:
@@ -32,7 +34,6 @@ def run_bot(path = r"C:\\Users\\Gavin\\VisualStudio\\Reversion_Sys\\ReversionSys
 
         # If time == market open, run bot.
         if dt == market_open:
-            # Output to run window
             print("Market has opened... will begin trading sequence now....")
 
             # Sell any positions that have exit criteria met.
@@ -44,10 +45,7 @@ def run_bot(path = r"C:\\Users\\Gavin\\VisualStudio\\Reversion_Sys\\ReversionSys
             # Buy any positions that have entry criteria met.
             ib.buy_positions(f'{path}')
 
-            # Sleep
             time.sleep(1)
-
-            # Exit Code after run
             exit(0)
             print(f"Finished executing code @ {dt}. Shutting down program now.")
 
@@ -57,4 +55,4 @@ def run_bot(path = r"C:\\Users\\Gavin\\VisualStudio\\Reversion_Sys\\ReversionSys
 # run_bot(path = r'C:\\Users\\Gavin\\VisualStudio\\Reversion_Sys\\ReversionSys\\2021-02-08 Reversion Trades.csv')
 
 # Get Trade List
-get_trade_list('csv',r'C:\\Users\\Gavin\\VisualStudio\\Reversion_Sys\\ReversionSys\S&P500 Components.csv',r'C:\\Users\\Gavin\\VisualStudio\\Reversion_Sys\\ReversionSys')
+get_trade_list('csv',r'C:\\Users\Dennis Loo.000\\Desktop\\ReversionSys\\S&P500 Components.csv',r'C:\\Users\Dennis Loo.000\\Desktop\\ReversionSys\\Trades_to_take')
