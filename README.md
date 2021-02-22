@@ -53,7 +53,6 @@ Here were the **parameters** I used for my trading system.
 - *RSI Exit Period* = 5
 - *RSI Exit Signal* = 40
 - *Max Positions to Hold* = 3
-- *Exit After n Days* = 10
 - *Limit Order* = 1.5%
 
 For the stock universe, I used only the **S&P500 Index Stocks.**
