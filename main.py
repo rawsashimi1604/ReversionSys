@@ -2,16 +2,17 @@
 from ibkr_custom_class import Interactive_Brokers_Custom
 from get_yf_data import Yahoo_Data
 from get_trades import get_trade_list
+import pandas as pd
 import datetime
 import time
 
 # Dataframe Settings
 pd.set_option('display.max_columns', None)
 
-def run_bot(path = r"C:\\Users\\Gavin\\VisualStudio\\Reversion_Sys\\ReversionSys\\2021-01-25 Reversion Trades.csv"):
+def run_bot(path = "C:\\Users\\rawsashimi1604\\VisualStudio\\Reversion_Sys\\ReversionSys\\2021-01-25 Reversion Trades.csv", market_open_time = "22:30:05", ip='127.0.0.1', socket=7497, clientId=1):
 
     # Get Market Open timing in SGT with 5 seconds of buffer
-    market_open = "22:23:30"   
+    market_open =  market_open_time
 
     # Initialize custom class as ib for easier usage.
     ib = Interactive_Brokers_Custom('ReversionSys', 3)
@@ -55,4 +56,4 @@ def run_bot(path = r"C:\\Users\\Gavin\\VisualStudio\\Reversion_Sys\\ReversionSys
 # run_bot(path = r'C:\\Users\\Gavin\\VisualStudio\\Reversion_Sys\\ReversionSys\\2021-02-08 Reversion Trades.csv')
 
 # Get Trade List
-get_trade_list('csv',r'C:\\Users\Dennis Loo.000\\Desktop\\ReversionSys\\S&P500 Components.csv',r'C:\\Users\Dennis Loo.000\\Desktop\\ReversionSys\\Trades_to_take')
+get_trade_list('csv',r'C:\Users\Gavin\VisualStudio\Reversion_Sys\ReversionSys\S&P500 Components.csv',r'C:\Users\Gavin\VisualStudio\Reversion_Sys\ReversionSys\Trades_to_take')
