@@ -3,6 +3,7 @@ import numpy as np
 import talib
 from get_yf_data import Yahoo_Data
 from datetime import date
+import os
 
 # Dataframe Settings
 pd.set_option('display.max_columns', None)
@@ -10,7 +11,10 @@ pd.set_option('display.max_columns', None)
 # Initialize Yahoo_Data Class
 yf = Yahoo_Data(1, 1, False)
 
-def get_trade_list(file_type, components_path = r"C:\Users\Gavin\VisualStudio\Reversion_Sys\ReversionSys\\S&P500 Components.csv", export_path = r"C:\Users\Dennis Loo.000\Desktop\ReversionSys\Trades_to_take"):
+# current path
+path_ = os.path.abspath(os.getcwd())
+
+def get_trade_list(file_type = "csv", components_path = path_ + r"\\S&P500 Components.csv", export_path = path_ + r"\\Trades_to_take"):
     with open(components_path, 'r') as f:
         # If incorrect arguments, stop code.
         if file_type != 'csv' and 'txt':
@@ -152,4 +156,3 @@ def rsi_exit(ticker):
     # Get RSI Exit Val
     rsi_exit_val = round(talib.RSI(ticker_close_data, 5).values.tolist()[-1], 2)
     return rsi_exit_val
-

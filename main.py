@@ -56,4 +56,4 @@ def run_bot(path = "C:\\Users\\rawsashimi1604\\VisualStudio\\Reversion_Sys\\Reve
 # run_bot(path = r'C:\\Users\\Gavin\\VisualStudio\\Reversion_Sys\\ReversionSys\\2021-02-08 Reversion Trades.csv')
 
 # Get Trade List
-get_trade_list('csv',r'C:\Users\Gavin\VisualStudio\Reversion_Sys\ReversionSys\S&P500 Components.csv',r'C:\Users\Gavin\VisualStudio\Reversion_Sys\ReversionSys\Trades_to_take')
+get_trade_list()
