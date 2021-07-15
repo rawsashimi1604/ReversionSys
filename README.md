@@ -16,10 +16,6 @@ Huge thanks to *erdiwit* for creating *ib_insync* module to make programming thi
 - ib_insync
 - pprint
 
-### Tasks to do
-- [ ] Provide way to change parameters in system
-- [ ] Documentation
-
 ### Installation
 - Install TWS Workstation
 - Install required modules
