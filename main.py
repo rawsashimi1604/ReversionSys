@@ -53,7 +53,11 @@ def run_bot(path = "C:\\Users\\rawsashimi1604\\VisualStudio\\Reversion_Sys\\Reve
 
 
 # Run bot
+
+
 # run_bot(path = r'C:\\Users\\Gavin\\VisualStudio\\Reversion_Sys\\ReversionSys\\2021-02-08 Reversion Trades.csv')
 
+import os
+path_ = os.path.abspath(os.getcwd())
 # Get Trade List
 get_trade_list()

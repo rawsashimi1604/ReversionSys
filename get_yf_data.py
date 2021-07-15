@@ -31,13 +31,11 @@ class Yahoo_Data:
 
         ticker = yf.Ticker(ticker)
         if command == "nil":
-            # if no command, prints out whole dictionary in a pprint format
             info = ticker.info
             if self.print == True:
                 pprint.pprint(info)
         
         else:
-            # else, print out value of key of dictionary
             info = ticker.info.get(f"{command}", "No such key exists. Please try again with a valid key.")
             if self.print == True:
                 print(f"{command} : {info}")
