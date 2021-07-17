@@ -5,14 +5,23 @@ from get_trades import get_trade_list
 import pandas as pd
 import datetime
 import time
+import os
 
 # Dataframe Settings
 pd.set_option('display.max_columns', None)
 
-def run_bot(path = "C:\\Users\\rawsashimi1604\\VisualStudio\\Reversion_Sys\\ReversionSys\\2021-01-25 Reversion Trades.csv", market_open_time = "22:30:05", ip='127.0.0.1', socket=7497, clientId=1):
+# Current path
+path_ = os.path.abspath(os.getcwd())
+
+
+def run_bot(date="2021-07-15", market_open_time="22:30:05", ip='127.0.0.1', socket=7497, clientId=1):
+
+    # Current path
+    path_ = os.path.abspath(os.getcwd())
+    path = path_ + "\\Trades_to_take\\{date} Reversion Trades.csv"
 
     # Get Market Open timing in SGT with 5 seconds of buffer
-    market_open =  market_open_time
+    market_open = market_open_time
 
     # Initialize custom class as ib for easier usage.
     ib = Interactive_Brokers_Custom('ReversionSys', 3)
@@ -48,13 +57,13 @@ def run_bot(path = "C:\\Users\\rawsashimi1604\\VisualStudio\\Reversion_Sys\\Reve
 
             time.sleep(1)
             exit(0)
-            print(f"Finished executing code @ {dt}. Shutting down program now.")
-
+            print(
+                f"Finished executing code @ {dt}. Shutting down program now.")
 
 
 if __name__ == "__main__":
-    # Uncomment to run the bot.
-    # run_bot(path = r'C:\\Users\\Gavin\\VisualStudio\\Reversion_Sys\\ReversionSys\\2021-02-08 Reversion Trades.csv')
-
     # Get Trade List
     get_trade_list()
+
+    # Uncomment and key in trade list date to run the bot.
+    # run_bot(date="2021-07-15")
