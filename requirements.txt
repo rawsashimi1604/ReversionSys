@@ -20,4 +20,4 @@ numpy == 1.19.3
 pandas == 1.1.5
 
 # C:\Users\Dennis Loo.000\Desktop\Desktop Folder\ReversionSys\get_yf_data.py: 1
-yfinance == 0.1.55
+yfinance == 0.1.63

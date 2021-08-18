@@ -1,0 +1,4 @@
+Ticker,Security,Sector,sma,roc,rsi_entry,ytd_close,buy_limit
+CBRE,CBRE,Real Estate,86.77,16.65,0.25,92.26,90.41
+APTV,Aptiv,Consumer Discretionary,150.79,12.53,3.06,158.26,155.09
+AKAM,Akamai Technologies,Information Technology,113.09,10.17,4.12,113.14,110.88

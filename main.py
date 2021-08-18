@@ -14,11 +14,11 @@ pd.set_option('display.max_columns', None)
 path_ = os.path.abspath(os.getcwd())
 
 
-def run_bot(date="2021-07-15", market_open_time="22:30:05", ip='127.0.0.1', socket=7497, clientId=1):
+def run_bot(date="2021-07-15", market_open_time="23:26:05", ip='127.0.0.1', socket=7497, clientId=1):
 
     # Current path
     path_ = os.path.abspath(os.getcwd())
-    path = path_ + "\\Trades_to_take\\{date} Reversion Trades.csv"
+    path = path_ + f"\\Trades_to_take\\{date} Reversion Trades.csv"
 
     # Get Market Open timing in SGT with 5 seconds of buffer
     market_open = market_open_time
@@ -63,7 +63,7 @@ def run_bot(date="2021-07-15", market_open_time="22:30:05", ip='127.0.0.1', sock
 
 if __name__ == "__main__":
     # Get Trade List
-    get_trade_list()
+    # get_trade_list()
 
     # Uncomment and key in trade list date to run the bot.
-    # run_bot(date="2021-07-15")
+    run_bot(date="2021-08-18")
